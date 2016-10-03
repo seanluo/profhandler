@@ -2,13 +2,13 @@
 
 ### Start / stop profiling by HTTP (For HTTP server programs)
 
-  import github.com/seanluo/profhandler
+  `import github.com/seanluo/profhandler`
 
-  Add profhandler.HTTPStart and profhandler.HTTPStop as your handler
+  Add `profhandler.HTTPStart` and `profhandler.HTTPStop` as your HTTP handler
 
-  Visit your URL to HTTPStart with parameters: http://xxx/yyy?[PROFILING_MODE]&path=[PATH_FOR_PROFILING_FILE] to start profiling
+  Visit your URL to HTTPStart with parameters: `http://xxx/yyy?[PROFILING_MODE]&path=[PATH_FOR_PROFILING_FILE]` to start profiling
 
-  > PROFILING_MODE: cpu, mem, block
+  > PROFILING_MODE: `cpu`, `mem` or `block`
 
   > PATH_FOR_PROFILING_FILE: a path on your machine, use "." for current directory
 
@@ -16,11 +16,11 @@
 
 ### Start / stop profiling by sending signal to process
 
-  import github.com/seanluo/profhandler
+  `import github.com/seanluo/profhandler`
 
   Add `profhandler.NewSignalHandler()` at the start of your program
 
-  set environment variable PROFILING_MODE to cpu, mem or block
+  set environment variable `PROFILING_MODE` to `cpu`, `mem` or `block`
 
   `kill -SIGUSR1 YOUR_PROCESS_ID` to start profiling
 
