@@ -6,17 +6,13 @@ import (
 	"github.com/pkg/profile"
 )
 
-var prof interface{
-	Stop()
-}
-
-func Start(w http.ResponseWriter, r *http.Request) {
+func HTTPStart(w http.ResponseWriter, r *http.Request) {
 	err := r.ParseForm()
 	if err != nil {
 		w.Header().Add("X-Error-Desc", err.Error())
 		w.WriteHeader(500)
 	} else if prof != nil {
-		fmt.Fprintln(w, "Profiling already started.")
+		fmt.Fprintln(w, "Error: Profiling already started.")
 	} else {
 		profiles := []func(*profile.Profile){}
 		mode := ""
@@ -58,7 +54,7 @@ func Start(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func Stop(w http.ResponseWriter, r *http.Request) {
+func HTTPStop(w http.ResponseWriter, r *http.Request) {
 	if prof != nil {
 		prof.Stop()
 		prof = nil
