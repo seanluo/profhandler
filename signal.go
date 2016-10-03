@@ -7,6 +7,7 @@ import (
 	"os/signal"
 	"syscall"
 	"strings"
+	"io/ioutil"
 )
 
 func NewSignalHandler() {
@@ -17,8 +18,7 @@ func NewSignalHandler() {
 			s := <- sig
 			switch s {
 			case syscall.SIGUSR1:
-				mode := os.Getenv("PROFILING_MODE")
-				signalStart(strings.TrimSpace(mode))
+				signalStart()
 			case syscall.SIGUSR2:
 				signalStop()
 			}
@@ -26,11 +26,21 @@ func NewSignalHandler() {
 	}()
 }
 
-func signalStart(mode string) {
+func signalStart() {
 	if prof != nil {
 		fmt.Println("Error: Profiling already started.")
 		return
 	}
+	mode := ""
+	mode_file := fmt.Sprintf("%s/data/PROFILING_MODE", os.Getenv("SRC_ROOT"))
+	f, err := os.Open(mode_file)
+	if err == nil {
+		buf, err := ioutil.ReadAll(f)
+		if err == nil {
+			mode = strings.TrimSpace(string(buf))
+		}
+	}
+
 	profiles := []func(*profile.Profile){}
 	switch mode {
 	case "cpu":

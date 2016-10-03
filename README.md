@@ -20,7 +20,7 @@
 
   Add `profhandler.NewSignalHandler()` at the start of your program
 
-  set environment variable `PROFILING_MODE` to `cpu`, `mem` or `block`
+  set content of the text file: `$SRC_ROOT/data/PROFILING_MODE` to `cpu`, `mem` or `block`
 
   `kill -SIGUSR1 YOUR_PROCESS_ID` to start profiling
 
